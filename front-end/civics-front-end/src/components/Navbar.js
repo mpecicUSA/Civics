@@ -52,12 +52,19 @@ return (
                     : 
                     <>
                     <NavItem>
-                        <NavLink to="/mastery">Welcome back, {this.props.user.name} | Mastery {this.props.user.stats}% </NavLink>
+                        <NavLink>
+                            <Link to="/mastery">Welcome back, {this.props.user.name} | Mastery {this.props.user.stats}% </Link>
+                        </NavLink>
                     </NavItem> 
                     </>
                     
 
             }
+            <NavItem>
+                        <NavLink>
+                            <Link to="/study">Study </Link>
+                        </NavLink>
+                    </NavItem> 
             <NavItem>
                 <NavLink>
                     <Link to="/test">Test</Link>
