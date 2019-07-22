@@ -10,7 +10,7 @@ exports.up = function(knex, Promise) {
     table.integer("question_id")
       .notNullable()
       .references('id')
-      .inTable('question')
+      .inTable('questions')
       .onDelete('CASCADE')
       .index();
     table.integer("stats_right");
