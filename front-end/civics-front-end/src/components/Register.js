@@ -1,22 +1,35 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom'
+import axios from "axios"
+import {withRouter} from 'react-router-dom'
 
-export default class Register extends React.Component {
+class Register extends React.Component {
     state = {
         email: "", 
         password: "", 
         confirmPassword: "", 
-        firstName: "", 
-        greenCardRecievedDate: "", 
-        zipCode: "", 
-        datePaperWorkSubmitted: "", 
-        whereSubmitted: ""
+        first_name: "",
+        last_name: ""
     }
     _register = (e) => {
         e.preventDefault();
+        console.log("register clicked")
+
         if(this.state.password === this.state.confirmPassword){
-            alert("You've been registerd")
+            axios.post(
+                'http://localhost:8000/register', {
+                first_name: this.state.first_name, 
+                last_name: this.state.last_name, 
+                email: this.state.email,
+                password: this.state.password, 
+                }
+            ).then( (response) => {
+                console.log("front end", response);
+                this.props.history.push('/login')
+            }).catch((error) => {
+                console.log("front end", error)
+            })
         }else{
             alert("Sorry, your password's don't match")
         }
@@ -32,7 +45,7 @@ export default class Register extends React.Component {
             <h3>Registation page</h3>
             <FormGroup onChange={this._updateState}>
                 <Label for="Email">Email</Label>
-                <Input type="email" name="email" id="Email" value={this.state.email} placeholder="my-Email-is-the-Best@Some-old-domain.com" />
+                <Input type="email" name="email" id="Email" value={this.state.email}  />
             </FormGroup>
             <FormGroup onChange={this._updateState}>
                 <Label for="Password">Password</Label>
@@ -43,24 +56,12 @@ export default class Register extends React.Component {
                 <Input type="password" name="confirmPassword" value={this.state.confirmPassword} id="confirmPassword" placeholder="...better match" />
             </FormGroup>
             <FormGroup onChange={this._updateState}>
-                <Label for="firstName">First Name</Label>
-                <Input type="text" name="firstName" value={this.state.firstName} id="firstName" placeholder="John" />
+                <Label for="first_name">First Name</Label>
+                <Input type="text" name="first_name" value={this.state.first_name} id="first_name" placeholder="John" />
             </FormGroup>
             <FormGroup onChange={this._updateState}>
-                <Label for="greenCardRecievedDate">Green Card Recieved Date</Label>
-                <Input type="date" name="greenCardRecievedDate" value={this.state.greenCardRecievedDate} id="greenCardRecievedDate" />
-            </FormGroup>
-            <FormGroup onChange={this._updateState}>
-                <Label for="datePaperWorkSubmitted">Date paperwork Submitted</Label>
-                <Input type="date" name="datePaperWorkSubmitted" value={this.state.datePaperWorkSubmitted} id="datePaperWorkSubmitted" />
-            </FormGroup>
-            <FormGroup onChange={this._updateState}>
-                <Label for="whereSubmitted">Where did you send your paperwork</Label>
-                <Input type="text" name="whereSubmitted" value={this.state.whereSubmitted} id="whereSubmitted" placeholder="Phoenix"/>
-            </FormGroup>
-            <FormGroup onChange={this._updateState}>
-                <Label for="zipCode">Zipcode</Label>
-                <Input type="text" name="zipCode" value={this.state.zipCode} id="zipCode" placeholder="90210" />
+                <Label for="last_name">Last Name</Label>
+                <Input type="text" name="last_name" value={this.state.last_name} id="last_name" placeholder="Smith" />
             </FormGroup>
 
             <Button onClick={this._register}>Register</Button>
@@ -70,3 +71,5 @@ export default class Register extends React.Component {
     }
 }
 
+
+export default withRouter(Register)

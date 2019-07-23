@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { Link } from 'react-router-dom'
+import axios from "axios"
 
 export default class Login extends React.Component {
     state = {
@@ -9,10 +10,22 @@ export default class Login extends React.Component {
     }
     _login = (e) => {
         e.preventDefault();
-        alert("You've been logged in")
+        axios.get("http://localhost:8000/login", {params:{
+
+            email: this.state.email, 
+            password: this.state.password
+        }
+        }).then((response) => {
+            console.log(response)
+            if(response.status === 200){
+                this.props.history.push('/study')
+            }
+            else{
+                alert('your password wrong')
+            }
+        })
     }
     _updateState = (e) => {
-        console.log(e.target.name)
         this.setState({[e.target.name]: e.target.value})
     }
     render() {
