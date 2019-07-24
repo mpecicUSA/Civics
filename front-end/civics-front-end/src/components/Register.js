@@ -73,3 +73,5 @@ class Register extends React.Component {
 
 
 export default withRouter(Register)
+
+// TODO add a you have now registered alert to show a user has registered

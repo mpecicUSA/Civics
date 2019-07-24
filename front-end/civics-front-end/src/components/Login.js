@@ -47,3 +47,4 @@ export default class Login extends React.Component {
     }
 }
 
+// TODO Add user data to state upon login 

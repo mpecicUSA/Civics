@@ -1,19 +1,12 @@
 import React, { Component } from 'react'
-import Flashcard from "./Flashcard"
+
 
 export default class Study extends Component {
+    
     state = {
         isQuestion: true, 
-        qCounter: 0, 
-        Questions: [
-            {id: 0, Q: "What is the supreme law of the land?", A: "The Constitution", Category: "Principles of American Democracy", skip: false}, 
-            {id: 1, Q: "What does the Constituion do?", A:"Sets up the government,defines the goverment, protects basic rights of Americans",Category: "Principles of American Democracy", skip: false},
-            {id: 2, Q: "The idea of self-government is in the first three words of the Constitution.  What are these words? ", A:  "We the people", Category: "Principles of American Democracy", skip: false},
-            {id: 3, Q: "What stops one branch of goverment from becoming too powerful", A: "Seperation of powers", Category: "System of Goverment" , skip: false},
-            {id: 4, Q: "Who is in charge of the executive branch", A: "The president", Category: "System of Goverment", skip: false}, 
-            {id: 5, Q: "Who makes federal laws?", A: "Congress", Category: "System of Goverment", skip: false}
-        ]
-    }
+        qCounter: 1, 
+    } 
     _flipCard = (e) => {
         e.preventDefault(); 
         this.setState({isQuestion: !this.state.isQuestion})
@@ -21,32 +14,40 @@ export default class Study extends Component {
     _nextCard = (e) => {
         e.preventDefault();
         this.setState({isQuestion: true})
-        if(this.state.qCounter < this.state.Questions.length-1){
+        if(this.state.qCounter < this.props.questions.length){
             this.setState({qCounter: this.state.qCounter+1})
         }else{
-        this.setState({qCounter: 0})
+        this.setState({qCounter: 1})
         }
     }
+
     render() {
+    let questions = this.props.questions.filter(item => Number(item.id) === this.state.qCounter)[0]
+    let {category, question, answer} = questions
         return (
             <div>
-                
-            <Flashcard 
-                question={this.state.Questions[this.state.qCounter].Q} 
-                answer={this.state.Questions[this.state.qCounter].A} 
-                key={this.state.Questions[this.state.qCounter]} 
-                category={this.state.Questions[this.state.qCounter].Category} 
-                isQuestion={this.state.isQuestion}
-                /> 
+                <h3>
+                    Category: {category}
+                </h3>
+                <p>
+                    Q: {question}
+                </p>
+                <p>
+                    A: {this.state.isQuestion ? "..." : answer}
+                </p>
+
                 {/* On click of flip card update state isQuestion */}
                 <button onClick={this._flipCard}>Flip card</button>
                 
                 {/* On click qCounter ++  */}
                 <button onClick={this._nextCard}>Next question</button>
+                {this.props.user.loggedIn ? <button>Skip this question today</button> : undefined }
+
             </div>
         )
     }
 }
 
 
-// TODO Add skip this question feature
+// TODO add functionality to skip question today 
+
