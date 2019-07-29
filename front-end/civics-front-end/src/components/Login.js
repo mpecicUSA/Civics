@@ -16,8 +16,8 @@ export default class Login extends React.Component {
             password: this.state.password
         }
         }).then((response) => {
-            console.log(response)
             if(response.status === 200){
+                this.props.updateState(response.data.user, response.data.stats); 
                 this.props.history.push('/study')
             }
             else{
@@ -47,4 +47,3 @@ export default class Login extends React.Component {
     }
 }
 
-// TODO Add user data to state upon login 

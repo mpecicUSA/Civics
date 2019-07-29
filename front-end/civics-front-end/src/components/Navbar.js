@@ -53,9 +53,14 @@ return (
                     <>
                     <NavItem>
                         <NavLink>
-                            <Link to="/mastery">Welcome back, {this.props.user.name} | Mastery {this.props.user.stats}% </Link>
+                            <Link to="/mastery">Welcome back, {this.props.user.name} {this.props.user.mastery > 70 ? `| Mastery ${this.props.user.mastery}%` : ""}</Link>
                         </NavLink>
                     </NavItem> 
+                    <NavItem>
+                <NavLink>
+                    <Link to="/test">Test</Link>
+                </NavLink>
+                </NavItem>
                     </>
                     
 
@@ -65,11 +70,7 @@ return (
                             <Link to="/study">Study </Link>
                         </NavLink>
                     </NavItem> 
-            <NavItem>
-                <NavLink>
-                    <Link to="/test">Test</Link>
-                </NavLink>
-            </NavItem>
+            
         </Nav>
         </Collapse>
     </Navbar>
@@ -77,5 +78,3 @@ return (
 );
 }
 }
-
-// TODO pull data from state to display in nav

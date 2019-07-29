@@ -5,27 +5,44 @@ export default class Study extends Component {
     
     state = {
         isQuestion: true, 
-        qCounter: 1, 
+        qCounter: 0
     } 
+    async componentDidMount(){
+        const questionsR = await fetch("http://localhost:8000/questions");
+        const q2 = await questionsR.json()
+        let notSkipped = q2.filter(question => question.skip === false)
+        this.setState({questions: notSkipped})
+    }  
     _flipCard = (e) => {
         e.preventDefault(); 
         this.setState({isQuestion: !this.state.isQuestion})
     }
     _nextCard = (e) => {
         e.preventDefault();
-        this.setState({isQuestion: true})
-        if(this.state.qCounter < this.props.questions.length){
-            this.setState({qCounter: this.state.qCounter+1})
+        if(this.state.qCounter+1 ==this.state.questions.length){
+            this.setState({
+                qCounter: 0,
+                isQuestion: true
+            })
         }else{
-        this.setState({qCounter: 1})
+        this.setState({
+            qCounter: (this.state.qCounter)+1, 
+            isQuestion: true
+        })
         }
+    }
+    _skipQuestion = (e) => {
+        e.preventDefault(); 
+        // this.state.questions.reduce((ac, cv) => cv)
+
     }
 
     render() {
-    let questions = this.props.questions.filter(item => Number(item.id) === this.state.qCounter)[0]
-    let {category, question, answer} = questions
-        return (
-            <div>
+        if(this.state.questions){
+            // go through questions filter out only questions that are not skipped
+            let {category, question, answer, id} = this.state.questions[this.state.qCounter]
+            return (
+                <div>
                 <h3>
                     Category: {category}
                 </h3>
@@ -40,12 +57,17 @@ export default class Study extends Component {
                 <button onClick={this._flipCard}>Flip card</button>
                 
                 {/* On click qCounter ++  */}
-                <button onClick={this._nextCard}>Next question</button>
-                {this.props.user.loggedIn ? <button>Skip this question today</button> : undefined }
+                <button  onClick={this._nextCard}>Next question</button>
+                {this.props.user.loggedIn ? <button value={id} onClick={this._skipQuestion}>Skip this question today</button> : undefined }
 
             </div>
         )
+    }else{
+        return (
+            <h1>Loading</h1>
+        )
     }
+}
 }
 
 

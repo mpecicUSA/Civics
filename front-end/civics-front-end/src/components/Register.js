@@ -24,8 +24,7 @@ class Register extends React.Component {
                 email: this.state.email,
                 password: this.state.password, 
                 }
-            ).then( (response) => {
-                console.log("front end", response);
+            ).then(() => {
                 this.props.history.push('/login')
             }).catch((error) => {
                 console.log("front end", error)
@@ -35,7 +34,6 @@ class Register extends React.Component {
         }
     }
     _updateState = (e) => {
-        console.log(e.target.name)
         this.setState({[e.target.name]: e.target.value})
     }
     render() {
@@ -73,5 +71,3 @@ class Register extends React.Component {
 
 
 export default withRouter(Register)
-
-// TODO add a you have now registered alert to show a user has registered

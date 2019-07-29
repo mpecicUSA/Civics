@@ -13,42 +13,46 @@ import './App.css';
 class App extends Component{
   state={
     user: {
-      name: "Marko", 
-      loggedIn: true, 
-      stats: "95"
+      name: '', 
+      loggedIn: false, 
+      mastery: undefined
     }
   }
-  async componentDidMount(){
-    console.log('component did mount')
-    const questionsR = await fetch("http://localhost:8000/questions");
-    const q2 = await questionsR.json()
-    this.setState({questions: q2})
-}  
 
- 
+
+
+  _updateUserState = (user, stats) => {
+    let attempts = 1; 
+    let right = 1;
+    for(let each in stats){
+      attempts += stats[each].attempts
+      right += stats[each].stats_right
+    }
+    let mastery = (right/attempts)*100
+    this.setState({
+      user: {
+        name : user.first_name,
+        loggedIn: true, 
+        mastery: mastery
+      }
+  })
+}
   render(){
-    if(this.state.questions){
 
       return (
         <BrowserRouter>
           <div className="App">
             <Route path="/" render={() => <Navbar user={this.state.user} />} />
             <Switch >
-            <Route path="/login" component={Login} />
+            <Route path="/login" render={(props)=> <Login updateState={this._updateUserState} {...props} /> } />
             <Route path="/register" render={(props)=> <Register {...props} /> } />
             <Route path="/mastery" component={Mastery} />
             <Route path="/test" component={Test} />
-            <Route path="/study" render={(props) => <Study questions={this.state.questions} user={this.state.user} {...props} />} />
+            <Route path="/study" render={(props) => <Study user={this.state.user} stats={this.state.state} {...props} />} />
             </Switch>
           </div>
         </BrowserRouter>
   );
-}
-  else{
-    return (
-      <h1>loading</h1> 
-    )
-  }
 }
 }
 
