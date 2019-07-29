@@ -14,7 +14,7 @@ exports.up = function(knex, Promise) {
       .onDelete('CASCADE')
       .index();
     table.integer("stats_right");
-    table.integer("stats_wrong");
+    table.integer("attempts");
       table.timestamps(true, true);
     })
   };

@@ -1,8 +1,8 @@
 const knex = require("../db/knex.js");
 
 const hasher = require('../config/hasher');
-const jwt = require('jsonwebtoken');
-const secret = process.env.JWT_SECRET || "shhhhhh";
+// const jwt = require('jsonwebtoken');
+// const secret = process.env.JWT_SECRET || "shhhhhh";
 
 module.exports = {
     register: (req, res) => {
@@ -14,7 +14,7 @@ module.exports = {
             email: user.email,
             password: user.password
                 }, 'id').then((results)=>{
-            res.json({message: "Successfully registered, please log in", id:results[0]});
+            res.json({message: "Successfully registered, please log in", id:results[0].first_name});
             }).catch((err)=>{
             res.status(400).send({message: err});
             })
@@ -28,9 +28,14 @@ module.exports = {
         if(user){
             hasher.check(user, req.query).then((isMatch)=>{
             if(isMatch){
-                const token = jwt.sign(user, secret);
+                // const token = jwt.sign(user, secret);
                 delete user.password;
-                res.json({message: "Successfully signed in", token, user})
+                // res.json({message: "Successfully signed in", user, token})
+                knex('stats')
+                .where('user_id', user.id)
+                .then((stats)=> {
+                    res.json({message: "Successfully signed in", user, stats })
+                })
             }else{
                 res.status(400).send({message: 'Invalid Email / Password'});
             }

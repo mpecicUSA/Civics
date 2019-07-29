@@ -3,6 +3,7 @@ exports.up = function(knex, Promise) {
         table.increments();
         table.string("question");
         table.string("answer");
+        table.boolean('skip');
         table.string("category");
         table.timestamps(true, true);
     })
