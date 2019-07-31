@@ -39,7 +39,7 @@ class Register extends React.Component {
     render() {
         return (
 
-        <Form>
+        <Form onSubmit={this._register}>
             <h3>Registation page</h3>
             <FormGroup onChange={this._updateState}>
                 <Label for="Email">Email</Label>

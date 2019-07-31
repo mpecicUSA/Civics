@@ -30,7 +30,7 @@ export default class Login extends React.Component {
     }
     render() {
         return (
-        <Form>
+        <Form onSubmit={this._login}>
             <FormGroup onChange={this._updateState}>
                 <Label for="exampleEmail">Email</Label>
                 <Input type="email" name="email" id="exampleEmail" value={this.state.email} placeholder="my-Email-is-the-Best@Some-old-domain.com" />
@@ -40,7 +40,7 @@ export default class Login extends React.Component {
                 <Input type="password" name="password" value={this.state.password} id="examplePassword" placeholder="..." />
             </FormGroup>
 
-            <Button onClick={this._login}>Submit</Button>
+            <Button onSubmit={this._login}>Submit</Button>
             <Link to="/register">Register</Link>
         </Form>
         );

@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from "react-router-dom"
 
-import Login from "./components/Login"
-import Test from "./components/Test"
-import Mastery from './components/Mastery'
-import Navbar from "./components/Navbar"
-import Register from './components/Register'
-import Study from './components/Study'
+import Login from "./Layout/Login"
+import Test from "./Layout/Test"
+import Mastery from './Layout/Mastery'
+import Navbar from "./Layout/Navbar"
+import Register from './Layout/Register'
+import Study from './Layout/Study'
+import Home from './Layout/Home'
 
 import './App.css';
 
@@ -44,6 +45,7 @@ class App extends Component{
           <div className="App">
             <Route path="/" render={() => <Navbar user={this.state.user} />} />
             <Switch >
+            <Route exact path="/" component={Home} />
             <Route path="/login" render={(props)=> <Login updateState={this._updateUserState} {...props} /> } />
             <Route path="/register" render={(props)=> <Register {...props} /> } />
             <Route path="/mastery" component={Mastery} />

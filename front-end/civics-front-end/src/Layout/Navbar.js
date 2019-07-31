@@ -29,7 +29,7 @@ return (
     <div>
     <Navbar color="light" light expand="md">
         {console.log(user)}
-        <NavbarBrand href="/">Civics Trainer</NavbarBrand>
+        <NavbarBrand href="/">Daily Brain Trainer</NavbarBrand>
         <NavbarToggler onClick={this.toggle} />
         <Collapse isOpen={this.state.isOpen} navbar>
         <Nav className="ml-auto" navbar>
@@ -53,7 +53,7 @@ return (
                     <>
                     <NavItem>
                         <NavLink>
-                            <Link to="/mastery">Welcome back, {this.props.user.name} {this.props.user.mastery > 70 ? `| Mastery ${this.props.user.mastery}%` : ""}</Link>
+                            <Link to="/mastery">Welcome back, {this.props.user.name} {this.props.user.mastery > 87 ? `| Mastery ${this.props.user.mastery}%` : ""}</Link>
                         </NavLink>
                     </NavItem> 
                     <NavItem>

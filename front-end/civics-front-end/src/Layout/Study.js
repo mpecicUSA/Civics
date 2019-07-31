@@ -33,8 +33,6 @@ export default class Study extends Component {
     }
     _skipQuestion = (e) => {
         e.preventDefault(); 
-        // this.state.questions.reduce((ac, cv) => cv)
-
     }
 
     render() {
@@ -47,7 +45,7 @@ export default class Study extends Component {
                     Category: {category}
                 </h3>
                 <p>
-                    Q: {question}
+                    Q: {question}?
                 </p>
                 <p>
                     A: {this.state.isQuestion ? "..." : answer}
@@ -59,7 +57,7 @@ export default class Study extends Component {
                 {/* On click qCounter ++  */}
                 <button  onClick={this._nextCard}>Next question</button>
                 {this.props.user.loggedIn ? <button value={id} onClick={this._skipQuestion}>Skip this question today</button> : undefined }
-
+                {/* TODO Display other cards like photos under camera roll */}
             </div>
         )
     }else{
@@ -71,5 +69,4 @@ export default class Study extends Component {
 }
 
 
-// TODO add functionality to skip question today 
 
