@@ -56,9 +56,14 @@ return (
                             <Link to="/mastery">Welcome back, {this.props.user.name} {this.props.user.mastery > 87 ? `| Mastery ${this.props.user.mastery}%` : ""}</Link>
                         </NavLink>
                     </NavItem> 
-                    <NavItem>
+                <NavItem>
                 <NavLink>
                     <Link to="/test">Test</Link>
+                </NavLink>
+                </NavItem>
+                <NavItem>
+                <NavLink>
+                    <Link to="/addAQuestion">Add a question</Link>
                 </NavLink>
                 </NavItem>
                     </>
