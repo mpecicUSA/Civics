@@ -8,9 +8,11 @@ module.exports = function(app){
   app.get('/questions', questions.getQuestions);
   app.get('/login', users.login)
   // app.get('/stats/:userId', stats.getStats)
+  app.get('/questionsForUser', questions.getUsersNonSkippedQuestions)
 
   // POST 
   app.post('/register', users.register)
+  app.post('/createq', questions.addAQuestion)
   // PATCH
 
   // DELETE
